@@ -84,7 +84,7 @@ int main() {
     }
     cout << "Loaded image: " << width << "x" << height << " Channels=" << channels << "\n";
 
-    // ✅ Resize big images to 512x512
+    // Resize big images to 512x512
     int targetSize = 512;
     int newW = targetSize, newH = targetSize;
     vector<unsigned char> resized(newW * newH * 3);
@@ -168,3 +168,18 @@ int main() {
     cout << "Compressed image saved as output.png\n";
     return 0;
 }
+//why quality of image to much downgrade?
+/*
+Grayscale conversion--
+You take (r + g + b) / 3.
+That removes all color → your output is black & white only.
+Very small block size (2×2) + K-means clustering--
+Each 2×2 block is replaced by a “codebook average.”
+This reduces detail → output looks blurred / pixelated.
+This is vector quantization compression, so some loss is expected.
+Small codebook size (64 clusters)--
+You have millions of blocks, but only 64 representative patterns.
+That means a lot of different textures/tones are forced into the same cluster → heavy quality drop.
+
+
+*/
